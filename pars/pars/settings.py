@@ -26,8 +26,9 @@ SECRET_KEY = 'y7*0icr+jwv*g$q)adc9a_mc7u4co!p6i=m5ww_$qb79femh0-'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-]
+	'localhost',
+	'.ap-northeast-2.compute.amazonaws.com',
+	]
 
 
 # Application definition
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'socket_server',
+    'dogfeed',
 ]
 
 MIDDLEWARE = [
