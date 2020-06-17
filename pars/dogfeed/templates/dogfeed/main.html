@@ -1,0 +1,12 @@
+{% extends 'dogfeed/common/header.html' %}
+{% block content %}
+<div>
+  <pre><h2>  Pet Autometic Relief Service</h2></pre>
+  <br>
+  <h1 class="straight"><ul><li id = ''>우리개</li><li> 식사 현황</li></ul></h1>
+  {% autoescape off %}
+  {{plot_div}}
+  {% endautoescape %}
+
+</div>
+{% endblock %}
