@@ -55,6 +55,10 @@ header ul > li {
 .straight ul >li{
 	height: 100%;
 	display: flex;
+	color: black;
 	align-items: center;
 	margin-right: 20px;
+}
+#changepet{
+	display: inline
 }
