@@ -40,9 +40,10 @@ class Dog_main(generic.TemplateView):
     @csrf_exempt
     def post(self,request):
         if request.method == 'POST':
-            received_json_data=json.loads(request.body)
+            received_json_data=json.loads(request.body.decode('utf-8'))
+            dataset = received_json_data['data']
             print(received_json_data['data']['time'])
-            Amount.objects.create(name=Pet.objects.get(name='초코'),weight=400, time="2020-06-18 07:00:00.000000")
+            Amount.objects.create(name=Pet.objects.get(name=dataset['name']),weight=dataset['weight'], time=dataset['time'])
             # amountData = Amount.objects.filter(name__name=received_json_data['data']['name'])
             # amountData.weight=300
             # amountData.time="2020-06-18 07:00:00.000000"
