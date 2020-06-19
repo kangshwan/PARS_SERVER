@@ -50,7 +50,9 @@ class Dog_main(generic.TemplateView):
             
             return HttpResponse('it was post request: '+str(received_json_data))
         return HttpResponse('it was GET request')
+
 class Our_dog(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         template_name='dogfeed/ourdog.html'
         return render(request, template_name)
+

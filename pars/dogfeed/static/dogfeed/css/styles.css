@@ -62,3 +62,7 @@ header ul > li {
 #changepet{
 	display: inline
 }
+div#stream{
+	width:80%;
+	float:left;
+}
