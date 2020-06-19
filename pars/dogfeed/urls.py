@@ -6,4 +6,6 @@ from . import views
 
 urlpatterns = [
     path('', views.Dog_main.as_view(), name='main'),
+    path('main/', views.Dog_main.as_view(), name='main'),
+    path('ourdog/',views.Our_dog.as_view(), name='ourdog')
 ]
