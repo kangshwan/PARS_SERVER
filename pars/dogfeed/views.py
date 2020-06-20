@@ -12,11 +12,14 @@ import requests
 
 
 # Create your views here.
-
-
-class Dog_main(generic.TemplateView):
+class Main_dog(generic.TemplateView):
     def get(self, request, *args, **kwargs):
-        template_name = 'dogfeed/main.html'
+        template_name='dogfeed/main.html'
+        return render(request, template_name)
+
+class Our_dog(generic.TemplateView):
+    def get(self, request, *args, **kwargs):
+        template_name = 'dogfeed/ourdog.html'
         json_serializer = serializers.get_serializer("json")()
         # dogs = json_serializer.serialize(Pet.objects.all(), ensure_ascii=False)
         dogs=Pet.objects.all()
@@ -51,8 +54,8 @@ class Dog_main(generic.TemplateView):
             return HttpResponse('it was post request: '+str(received_json_data))
         return HttpResponse('it was GET request')
 
-class Our_dog(generic.TemplateView):
+class View_dog(generic.TemplateView):
     def get(self, request, *args, **kwargs):
-        template_name='dogfeed/ourdog.html'
+        template_name='dogfeed/viewdog.html'
         return render(request, template_name)
 

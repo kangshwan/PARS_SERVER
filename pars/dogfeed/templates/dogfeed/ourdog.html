@@ -1,12 +1,20 @@
 {% extends 'dogfeed/common/header.html' %}
 {% block content %}
 
-  <pre><h2> 우리개 보기 </h2></pre>
+  <pre><h2>  Pet Autometic Relief Service</h2></pre>
+  <br>
+  <div style="float:left;">
+  <h1 class="straight"><ul><li id = 'mydog'>  
+  {% for dog in dog_names%}
+    {{ dog.name }}<br>
+  {% endfor %}
+  </li><li> 식사 현황</li></ul></h1>
   </div>
   <!--<div><button id='changepet'>버튼</button></div>-->
-  <div id='stream'>
-    <object type="text/html" data="http://220.67.124.193:11056/" width="610px" height="410px" style="overflow:auto;border:5px ridge blue">
-    </object>
+  <div style="float:left;">
+  {% autoescape off %}
+    {{plot_div}}
+  {% endautoescape %}
   </div>
-
+  
 {% endblock %}
