@@ -18,7 +18,7 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from accounts.views import signup_view, activation_sent_view, activate
+from accounts.views import signup_view
 
 
 urlpatterns = [

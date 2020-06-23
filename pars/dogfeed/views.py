@@ -3,9 +3,13 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views import generic
 from django.core import serializers
+from django.urls import reverse
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 from dogfeed.models import Pet,Amount
+from django.shortcuts import redirect
+from django.views.generic.edit import CreateView
+
 import json
 import requests
 
@@ -17,11 +21,17 @@ class Main_dog(generic.TemplateView):
         return render(request, template_name)
 
 class Our_dog(generic.TemplateView):
+
     def get(self, request, *args, **kwargs):
+        username = request.user.username
+        print(username)
         template_name = 'dogfeed/ourdog.html'
         json_serializer = serializers.get_serializer("json")()
         # dogs = json_serializer.serialize(Pet.objects.all(), ensure_ascii=False)
-        dogs=Pet.objects.all()
+        dogs=Pet.objects.filter(user__username=str(username))
+        if not dogs:
+            print("fuck")
+            return redirect('add_dog')
         amounts = Amount.objects.all()
         x_data=[]
         y_data=[]
@@ -31,8 +41,8 @@ class Our_dog(generic.TemplateView):
                 x_data.append(amount.time)
                 y_data.append(amount.weight)
         plot_div = plot([Scatter(x=x_data, y=y_data,
-                            mode='lines', name='test',
-                            opacity=0.8, marker_color='green')],
+                    mode='lines', name='test',
+                    opacity=0.8, marker_color='green')],
                     output_type='div',include_plotlyjs=False)
         
         return render(request, template_name, context={'plot_div': plot_div, 'dog_names': dogs})
@@ -55,3 +65,13 @@ class View_dog(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         template_name='dogfeed/viewdog.html'
         return render(request, template_name)
+
+class Add_dog(CreateView):
+    model = Pet
+    fields ='__all__'
+    def get_initial(self):
+        return {
+        'user': self.request.user
+        }
+    def get_success_url(self):
+        return reverse('ourdog')

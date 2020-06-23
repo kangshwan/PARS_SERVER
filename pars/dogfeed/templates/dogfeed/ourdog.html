@@ -1,26 +1,27 @@
 {% extends 'dogfeed/common/header.html' %}
 {% block content %}
 {% if user.is_authenticated %}
+    {% for dog in dog_names%}
+        {% if user.username|stringformat:"s" == dog.user|stringformat:"s" %}
+        <div class="row">
+            <div class="medium-6 columns medium-push-6">
+            </div>
+            <div class="medium-6 columns medium-pull-6">
+                <h1 class="straight"><ul><li id = 'mydog'>  
+                    {{ dog.name }}<br>
+                </li><li> 식사 현황</li></ul></h1>
+            <div>
+            {% autoescape off %}
+                {{plot_div}}
+            {% endautoescape %}
+            </div>
+            </div>
+        </div>
 
-<div class="row">
-    <div class="medium-6 columns medium-push-6">
-    
-    </div>
-    <div class="medium-6 columns medium-pull-6">
-        <h1 class="straight"><ul><li id = 'mydog'>  
-        {% for dog in dog_names%}
-            {{ dog.name }}<br>
-        {% endfor %}
-        </li><li> 식사 현황</li></ul></h1>
-    <div>
-    {% autoescape off %}
-        {{plot_div}}
-    {% endautoescape %}
-    </div>
-    </div>
-</div>
-
-<hr>
+        <hr>
+        {%else%}
+        {%endif%}
+    {%endfor%}
 {%else%}
 <div class="row">
     <div class="medium-6 columns medium-push-6">
@@ -31,4 +32,5 @@
     </div>
 </div>
 {%endif%}
-{% endblock %}
+
+    {% endblock %}
