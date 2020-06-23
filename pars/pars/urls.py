@@ -15,11 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
+from accounts.views import signup_view, activation_sent_view, activate
+
 
 urlpatterns = [
-    path('',include('dogfeed.urls')),
     path('admin/', admin.site.urls),
+    path('',RedirectView.as_view(url='dogfeed/',permanent=True)),
     path('api/v1', include('dogfeed.urls')),
-    path('dogfeed/', include('dogfeed.urls'),)
+    path('dogfeed/', include('dogfeed.urls'),),
 #    url(r'^api-auth/', include('rest_framework.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    #sign up
+    path('accounts/signup/', signup_view, name='signup'),
 ]

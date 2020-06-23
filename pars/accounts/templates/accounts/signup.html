@@ -1,0 +1,29 @@
+{% extends 'dogfeed/common/header.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="medium-6 columns medium-push-3">
+
+      <h2>Sign up Form</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% if field.help_text %}
+            <small style="color:grey">{{ field.help_text}}</small>
+          {% endif %}
+          {% for error in field.erros %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+        {% endfor %}
+        <button type="submit">Sign up</button>
+      </form>
+      </br>
+    </div>
+  </div>
+{% endblock %}
+    

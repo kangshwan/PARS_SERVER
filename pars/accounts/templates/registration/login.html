@@ -1,0 +1,41 @@
+{% extends 'dogfeed/common/header.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="medium-6 columns medium-push-4">
+
+  {% if form.errors %}
+    <p>ID또는 비밀번호가 올바르지 않습니다. 다시 시도하세요.</p>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>이 계정은 이 페이지에 권한이 없습니다. 계속하시려면 다른 계정으로 로그인 하세요.</p>
+    {% else %}
+      <p>이 페이지를 보려면 로그인을 하세요.</p>
+    {% endif %}
+  {% endif %}
+  
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="login" style="border:0" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+  
+  {# Assumes you setup the password_reset view in your URLconf #}
+  </br>
+  <p><a href="{% url 'signup' %}">회원가입</a></p>
+  <p><a href="{% url 'password_reset' %}">비밀번호를 잊었나요?</a></p>
+</div>
+</div>
+{% endblock %}
