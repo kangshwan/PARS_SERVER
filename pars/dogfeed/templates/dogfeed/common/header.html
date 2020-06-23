@@ -25,15 +25,39 @@
       <div class="top-bar-right">
         <ul class="menu">
           <li><a href="{% url 'home' %}">HOME</a></li>
-          <li><a href="{% url 'ourdog' %}">우리개</a></li>
-          <li><a href="">등록</a></li>
-          <li><a href="{% url 'viewdog' %}">영상보기</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}">LOGIN</a></li>
+          {% endif %}
+            <li><a href="{% url 'ourdog' %}">우리개</a></li>
+            <li><a href="{% url 'viewdog' %}">영상보기</a></li>
+
         </ul>
       </div>
     </div>
     <!-- End Top Bar -->
     <section>
-     <div>{% block content %}{% endblock %}</div>
+    <div class="callout medium">
+        <div class="row column text-center">
+        <h1>PARS</h1>   
+        <p class="lead">The best way to protect our companion pets.</p>
+        </div>
+    </div>
+      <div>{% block content %}{% endblock %}</div>
+        <div class="row column">
+        <ul class="menu">
+        <li><a href="{% url 'home' %}">HOME</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}?next={{request.paht}}">LOGOUT</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">LOGIN</a></li>
+          {% endif %}
+          <li><a href="{% url 'ourdog' %}">우리개</a></li>
+          <li><a href="{% url 'viewdog' %}">영상보기</a></li>
+        </ul>
+      </div>
+
     </section>
 </body>
 <script src="{% static 'js/app.js' %}"></script>

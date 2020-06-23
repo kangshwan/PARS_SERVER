@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from django.views import generic
 from django.core import serializers
 from plotly.offline import plot
@@ -27,17 +26,15 @@ class Our_dog(generic.TemplateView):
         x_data=[]
         y_data=[]
         for dog in dogs:
-            print(dog.name)
             amounts=Amount.objects.filter(name=dog)
             for amount in amounts:
-                print(amount.name, amount.weight, amount.time)
                 x_data.append(amount.time)
                 y_data.append(amount.weight)
-                
         plot_div = plot([Scatter(x=x_data, y=y_data,
                             mode='lines', name='test',
                             opacity=0.8, marker_color='green')],
                     output_type='div',include_plotlyjs=False)
+        
         return render(request, template_name, context={'plot_div': plot_div, 'dog_names': dogs})
     @csrf_exempt
     def post(self,request):
@@ -58,4 +55,3 @@ class View_dog(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         template_name='dogfeed/viewdog.html'
         return render(request, template_name)
-
