@@ -27,10 +27,8 @@ class Our_dog(generic.TemplateView):
         x_data=[]
         y_data=[]
         for dog in dogs:
-            print(dog.name)
             amounts=Amount.objects.filter(name=dog)
             for amount in amounts:
-                print(amount.name, amount.weight, amount.time)
                 x_data.append(amount.time)
                 y_data.append(amount.weight)
                 
