@@ -44,8 +44,8 @@ class Our_dog(generic.TemplateView):
         # dogs = json_serializer.serialize(Pet.objects.all(), ensure_ascii=False)
         dogs=Pet.objects.filter(user__username=str(username))
         if not dogs:
-            print("fuck")
-            return redirect('add_dog')
+            if request.user.is_authenticated:
+                return redirect('add_dog')
         amounts = Amount.objects.all()
         x_data=[]
         y_data=[]
