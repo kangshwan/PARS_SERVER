@@ -19,9 +19,23 @@ class Main_dog(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         template_name='dogfeed/main.html'
         return render(request, template_name)
+        
+    @csrf_exempt
+    def post(self,request):
+        if request.method == 'POST':
+            received_json_data=json.loads(request.body.decode('utf-8'))
+            dataset = received_json_data['data']
+            print(received_json_data['data']['time'])
+            Amount.objects.create(name=Pet.objects.get(name=dataset['name']),weight=dataset['weight'], time=dataset['time'])
+            # amountData = Amount.objects.filter(name__name=received_json_data['data']['name'])
+            # amountData.weight=300
+            # amountData.time="2020-06-18 07:00:00.000000"
+            # amountData.save()
+            
+            return HttpResponse('it was post request: '+ str(received_json_data))
+        return HttpResponse('it was GET request')
 
 class Our_dog(generic.TemplateView):
-
     def get(self, request, *args, **kwargs):
         username = request.user.username
         print(username)
@@ -46,6 +60,7 @@ class Our_dog(generic.TemplateView):
                     output_type='div',include_plotlyjs=False)
         
         return render(request, template_name, context={'plot_div': plot_div, 'dog_names': dogs})
+    
     @csrf_exempt
     def post(self,request):
         if request.method == 'POST':
@@ -58,7 +73,7 @@ class Our_dog(generic.TemplateView):
             # amountData.time="2020-06-18 07:00:00.000000"
             # amountData.save()
             
-            return HttpResponse('it was post request: '+str(received_json_data))
+            return HttpResponse('it was post request: '+ str(received_json_data))
         return HttpResponse('it was GET request')
 
 class View_dog(generic.TemplateView):
