@@ -12,7 +12,7 @@ daphne==2.5.0
 Django==2.2.13
 django-filter==2.3.0
 django-socket-server==0.0.4
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 hyperlink==19.0.0
 idna==2.9
 incremental==17.5.0
